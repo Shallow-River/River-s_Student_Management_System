@@ -54,7 +54,10 @@
           "description": "（注：该操作会删除对应学生包括成绩在内的全部信息，请谨慎操作！）"
         }
       ],
-      "api": "/delete",
+      "api": {
+        "method": "get",
+        "url": "http://localhost:8890/main/delete/${id}"
+      },
       "id": "u:ea632c0b60bd",
       "submitText": "删除"
     }

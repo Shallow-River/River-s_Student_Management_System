@@ -14,24 +14,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/main")
-@CrossOrigin(originPatterns = "*")
+//@CrossOrigin(originPatterns = "*")
 public class StudentController {
 
     @Resource
     private StudentService studentService;
 
-    @CrossOrigin(allowCredentials = "true")
+//    @CrossOrigin(allowCredentials = "true")
     @PostMapping("/addStu")
     public Result add(@RequestBody StudentAddBo bo){
         return studentService.insert(bo);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public Result delete(@RequestParam(value = "id") Long id){
+    @GetMapping("/delete/{id}")
+    public Result delete(@PathVariable Long id){
         return studentService.delete(id);
     }
 
-    @CrossOrigin(allowCredentials = "true")
+//    @CrossOrigin(allowCredentials = "true")
     @PutMapping("/edit")
     public Result edit(@Validated @RequestBody StudentEditbo bo){
         return studentService.update(bo);

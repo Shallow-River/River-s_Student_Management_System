@@ -1,13 +1,12 @@
-package com.example.back.entity;
+package com.example.back.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 @Data
-public class Scores {
-
+public class ScoresVo {
     private Long id;
+
+    private String stu_name;
 
     private Double math_score;
 
