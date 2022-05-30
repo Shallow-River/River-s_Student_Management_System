@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.StudentAddBo;
 import com.example.back.bo.StudentEditbo;
 import com.example.back.entity.Student;
+import com.example.back.mapper.ScoresMapper;
 import com.example.back.mapper.StudentMapper;
 import com.example.back.service.StudentService;
 import com.example.back.vo.Result;
@@ -23,36 +24,40 @@ public class StudentServiceImpl implements StudentService {
     @Resource
     private StudentMapper studentMapper;
 
+    @Resource
+    private ScoresMapper scoresMapper;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result insert(StudentAddBo bo) {
+    public int insert(StudentAddBo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
-        return Result.success(studentMapper.insert(student));
+        return studentMapper.insert(student);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result delete(Long id) {
-        return Result.success(studentMapper.delete(new QueryWrapper<Student>().eq("id", id)));
+    public int delete(Long id) {
+        scoresMapper.deleteById(id);
+        return studentMapper.delete(new QueryWrapper<Student>().eq("id", id));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result update(StudentEditbo bo) {
+    public int update(StudentEditbo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
-        return Result.success(studentMapper.update(student, new QueryWrapper<Student>().eq("id", bo.getId())));
+        return studentMapper.update(student, new QueryWrapper<Student>().eq("id", bo.getId()));
     }
 
     @Override
-    public Result selectById(Long id) {
+    public StudentVo selectById(Long id) {
         Student student = studentMapper.selectById(id);
         StudentVo vo = new StudentVo();
         BeanUtils.copyProperties(vo, student);
-        return Result.success(vo);
+        return vo;
     }
 
     @Override
-    public Result selectByName(String name) {
+    public List<StudentVo> selectByName(String name) {
         List<StudentVo> list = studentMapper.selectList(new QueryWrapper<Student>().like("stu_name", name)).stream().map(
                 student -> {
                     StudentVo vo = new StudentVo();
@@ -60,6 +65,6 @@ public class StudentServiceImpl implements StudentService {
                     return vo;
                 }
         ).collect(Collectors.toList());
-        return Result.success(list);
+        return list;
     }
 }

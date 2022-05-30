@@ -3,17 +3,20 @@ package com.example.back.service;
 import com.example.back.bo.StudentAddBo;
 import com.example.back.bo.StudentEditbo;
 import com.example.back.vo.Result;
+import com.example.back.vo.StudentVo;
+
+import java.util.List;
 
 
 public interface StudentService {
 
-    Result insert(StudentAddBo bo);
+    int insert(StudentAddBo bo);
 
-    Result delete(Long id);
+    int delete(Long id);
 
-    Result update(StudentEditbo bo);
+    int update(StudentEditbo bo);
 
-    Result selectById(Long id);
+    StudentVo selectById(Long id);
 
-    Result selectByName(String name);
+    List<StudentVo> selectByName(String name);
 }

@@ -3,6 +3,8 @@ package com.example.back.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.ScoreAddBo;
+import com.example.back.common.StringConstant;
+import com.example.back.common.handle.MyException;
 import com.example.back.entity.Scores;
 import com.example.back.entity.Student;
 import com.example.back.mapper.ScoresMapper;
@@ -10,10 +12,14 @@ import com.example.back.mapper.StudentMapper;
 import com.example.back.service.ScoreService;
 import com.example.back.vo.Result;
 import com.example.back.vo.ScoresVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScoreServiceImpl implements ScoreService {
@@ -26,21 +32,44 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result insert(ScoreAddBo bo) {
+    public int insert(ScoreAddBo bo) {
         Scores score = BeanUtil.toBean(bo, Scores.class);
-        return Result.success(scoresMapper.insert(score));
+        return scoresMapper.insert(score);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Result selectById(Long id) {
-        ScoresVo vo = BeanUtil.toBean(scoresMapper.selectById(id), ScoresVo.class);
-        vo.setStu_name(studentMapper.selectById(id).getStu_name());
-        return Result.success(vo);
+    public List<ScoresVo> selectById(Long id) {
+        List<Scores> scores = scoresMapper.selectListById(id);
+        if(scores.isEmpty()){
+            throw new MyException(scores, StringConstant.FAILURE_OF_SEARCH_ID);
+        }
+        List<ScoresVo> list = scores.stream().map(e -> {
+            Student student = studentMapper.selectById(e.getId());
+            ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
+            vo.setStuName(student.getStuName());
+            return vo;
+        }).collect(Collectors.toList());
+
+        return list;
     }
 
     @Override
-    public Result selectByName(String name) {
-        return null;
+    @Transactional(rollbackFor = Exception.class)
+    public List<ScoresVo> selectByName(String name) {
+        List<Scores> scores = scoresMapper.selectListByName(name);
+
+        if(scores.isEmpty()){
+            throw new MyException(scores, StringConstant.FAILURE_OF_SEARCH_NAME);
+        }
+
+        List<ScoresVo> list = scores.stream().map(e -> {
+            Student student = studentMapper.selectById(e.getId());
+            ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
+            vo.setStuName(student.getStuName());
+            return vo;
+        }).collect(Collectors.toList());
+
+        return list;
     }
 }

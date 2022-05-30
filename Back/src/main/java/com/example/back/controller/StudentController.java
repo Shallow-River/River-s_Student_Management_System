@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/main/stu")
 //@CrossOrigin(originPatterns = "*")
 public class StudentController {
 
@@ -23,27 +23,27 @@ public class StudentController {
 //    @CrossOrigin(allowCredentials = "true")
     @PostMapping("/addStu")
     public Result add(@RequestBody StudentAddBo bo){
-        return studentService.insert(bo);
+        return Result.judge(studentService.insert(bo));
     }
 
     @GetMapping("/delete/{id}")
     public Result delete(@PathVariable Long id){
-        return studentService.delete(id);
+        return Result.judge(studentService.delete(id));
     }
 
 //    @CrossOrigin(allowCredentials = "true")
     @PutMapping("/edit")
     public Result edit(@Validated @RequestBody StudentEditbo bo){
-        return studentService.update(bo);
+        return Result.judge(studentService.update(bo));
     }
 
-    @GetMapping("/selectById/{id}")
+    @GetMapping("/search_id/{id}")
     public Result selectById(@PathVariable Long id){
-        return studentService.selectById(id);
+        return Result.success(studentService.selectById(id));
     }
 
-    @GetMapping("/selectByName/{name}")
+    @GetMapping("/search_name/{name}")
     public Result selectByName(@RequestParam(value = "name") String name){
-        return studentService.selectByName(name);
+        return Result.success(studentService.selectByName(name));
     }
 }

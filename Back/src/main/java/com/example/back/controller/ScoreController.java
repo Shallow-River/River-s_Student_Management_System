@@ -8,18 +8,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/main/score")
 public class ScoreController {
     @Resource
     private ScoreService scoreService;
 
     @PostMapping("/addScore")
-    public Result insert(@RequestBody ScoreAddBo bo){
-        return scoreService.insert(bo);
+    public Result insert(@RequestBody ScoreAddBo bo) throws Exception{
+        return Result.judge(scoreService.insert(bo));
     }
 
-    @GetMapping("/search_id/{id}")
-    public Result getById(@PathVariable Long id){
-        return scoreService.selectById(id);
+    @GetMapping("/searchById/{id}")
+    public Result selectById(@PathVariable Long id) throws Exception{
+        return Result.success(scoreService.selectById(id));
+    }
+
+    @GetMapping("/searchByName/{name}")
+    public Result selectByName(@PathVariable String name) throws Exception{
+        return Result.success(scoreService.selectByName(name));
     }
 }

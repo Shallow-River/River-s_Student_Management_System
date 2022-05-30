@@ -14,9 +14,9 @@ public class StudentEditbo {
     @NotBlank(message = "用户名不可为空")
     @Size(min = 0, max = 20, message = "用户名长度不能超过20个字符")
     @Pattern(regexp = StringConstant.PATTERN, message = StringConstant.MESSAGE)
-    private String stu_name;
+    private String stuName;
 
-    private String stu_sex;
+    private String stuSex;
 
-    private String stu_birth;
+    private String stuBirth;
 }

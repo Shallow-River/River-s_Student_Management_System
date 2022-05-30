@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.back.mapper.ScoresMapper">
+    <resultMap id="scoresMap" type="com.example.back.entity.Scores">
+        <id column="id"  property="id"/>
+        <id column="math_score" jdbcType="DOUBLE" property="mathScore"/>
+        <id column="java_score" jdbcType="DOUBLE" property="javaScore"/>
+        <id column="eng_score" jdbcType="DOUBLE" property="engScore"/>
+        <id column="pe_score" jdbcType="DOUBLE" property="peScore"/>
+    </resultMap>
+
+    <select id="selectListById" resultType="com.example.back.entity.Scores">
+        select * from scores
+        <where>
+            1 = 1 and id=#{id}
+        </where>
+    </select>
+
+    <select id="selectListByName" resultType="com.example.back.entity.Scores">
+        select * from scores
+        <where>
+            1 = 1 and id in (select id from student where stu_name = #{stuName})
+        </where>
+    </select>
+</mapper>

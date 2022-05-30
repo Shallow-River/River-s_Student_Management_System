@@ -9,11 +9,11 @@ public class Scores {
 
     private Long id;
 
-    private Double math_score;
+    private Double mathScore;
 
-    private Double java_score;
+    private Double javaScore;
 
-    private Double eng_score;
+    private Double engScore;
 
-    private Double pe_score;
+    private Double peScore;
 }

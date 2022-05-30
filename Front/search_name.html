@@ -30,7 +30,6 @@
     <script type="text/javascript">
       (function () {
         let amis = amisRequire('amis/embed');
-        // 通过替换下面这个配置来生成不同页面
         let amisJSON = {
             "type": "page",
   "body": [
@@ -44,7 +43,7 @@
       "syncLocation": false,
       "api": {
         "method": "get",
-        "url": "/getByName",
+        "url": "http://localhost:8890/main/score/searchByName/${name}",
         "dataType": "json",
         "responseData": null
       },
@@ -55,29 +54,29 @@
           "type": "text"
         },
         {
-          "name": "stu_name",
+          "name": "stuName",
           "label": "姓名",
           "type": "text"
         },
         {
           "type": "text",
           "label": "数学成绩",
-          "name": "math_score"
+          "name": "mathScore"
         },
         {
           "type": "text",
           "label": "Java成绩",
-          "name": "java_score"
+          "name": "javaScore"
         },
         {
           "type": "text",
           "label": "英语成绩",
-          "name": "eng_score"
+          "name": "engScore"
         },
         {
           "type": "text",
           "label": "体育成绩",
-          "name": "pe_score"
+          "name": "peScore"
         }
       ],
       "bulkActions": [
@@ -102,12 +101,13 @@
         "body": [
           {
             "type": "input-text",
-            "name": "id",
+            "name": "name",
             "label": "请输入姓名",
             "required": true
           }
         ]
-      }
+      },
+      "initFetch": false
     }
   ],
   "aside": [

@@ -43,21 +43,21 @@
     {
       "type": "form",
       "title": "请输入要添加的学生信息：",
-      "api": "post:http://localhost:8890/main/addStu",
+      "api": "post:http://localhost:8890/main/stu/addStu",
       "body": [
         {
           "label": "学生姓名",
           "type": "input-text",
-          "name": "stu_name",
+          "name": "stuName",
           "required": true
         },
         {
-          "name": "stu_sex",
+          "name": "stuSex",
           "type": "input-text",
           "label": "学生性别"
         },
         {
-          "name": "stu_birth",
+          "name": "stuBirth",
           "type": "input-text",
           "label": "出生年月日"
         }

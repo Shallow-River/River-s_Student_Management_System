@@ -2,11 +2,14 @@ package com.example.back.service;
 
 import com.example.back.bo.ScoreAddBo;
 import com.example.back.vo.Result;
+import com.example.back.vo.ScoresVo;
+
+import java.util.List;
 
 public interface ScoreService {
-    Result insert(ScoreAddBo bo);
+    int insert(ScoreAddBo bo);
 
-    Result selectById(Long id);
+    List<ScoresVo> selectById(Long id);
 
-    Result selectByName(String name);
+    List<ScoresVo> selectByName(String name);
 }

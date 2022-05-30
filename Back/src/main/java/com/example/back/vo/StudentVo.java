@@ -7,9 +7,9 @@ public class StudentVo {
 
     private Long id;
 
-    private String name;
+    private String stuName;
 
-    private String sex;
+    private String stuSex;
 
-    private String birth;
+    private String stuBirth;
 }

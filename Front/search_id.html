@@ -41,11 +41,7 @@
     {
       "type": "crud",
       "syncLocation": false,
-      "api": {
-        "method": "get",
-        "url": "http://localhost:8890/main/search_id/${id}",
-        "dataType": "json"
-      },
+      "api":  "get:http://localhost:8890/main/score/searchById/${id}",
       "columns": [
         {
           "name": "id",
@@ -53,31 +49,80 @@
           "type": "text"
         },
         {
-          "name": "stu_name",
+          "name": "stuName",
           "label": "姓名",
           "type": "text"
         },
         {
           "type": "text",
           "label": "数学成绩",
-          "name": "math_score"
+          "name": "mathScore"
         },
         {
           "type": "text",
           "label": "Java成绩",
-          "name": "java_score"
+          "name": "javaScore"
         },
         {
           "type": "text",
           "label": "英语成绩",
-          "name": "eng_score"
+          "name": "engScore"
         },
         {
           "type": "text",
           "label": "体育成绩",
-          "name": "pe_score"
+          "name": "peScore"
+        },
+        {
+          "type": "chart",
+          "config": {
+            "xAxis": {
+              "type": "category",
+              "data": [
+                "数学",
+                "Java",
+                "英语",
+                "体育"
+              ]
+            },
+            "yAxis": {
+              "type": "value"
+            },
+            "series": [
+              {
+                "data": [
+                  "${mathScore}",
+                  "${javaScore}",
+                  "${engScore}",
+                  "${peScore}"
+                ],
+                "type": "bar"
+              }
+            ]
+          },
+          "replaceChartOption": true,
+          "id": "u:361176858858",
+          "label": "成绩分析图",
+          "name": "",
+          "clearValueOnHidden": false,
+          "visible": "",
+          "api": {
+            "method": "get",
+            "url": "http://localhost:8890/main/score/searchById/${id}",
+            "responseData": {
+              "数学": "${mathScore}",
+              "Java": "${javaScore}",
+              "英语": "${engScore}",
+              "体育": "${peScore}"
+            }
+          },
+          "initFetch": false,
+          "placeholder": "-"
         }
       ],
+      "defaultParams":{
+        "perPage": 10
+      },
       "bulkActions": [
       ],
       "itemActions": [
@@ -105,7 +150,8 @@
             "required": true
           }
         ]
-      }
+      },
+      "initFetch": false
     }
   ],
   "aside": [
