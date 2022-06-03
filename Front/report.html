@@ -30,23 +30,80 @@
     <script type="text/javascript">
       (function () {
         let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
         let amisJSON = {
             "type": "page",
   "body": [
     {
       "type": "tpl",
-      "tpl": "<h1>根据姓名查找学生成绩：</h1>",
-      "inline": false
+      "tpl": "<h1>生成班级成绩报告：</h1>",
+      "inline": false,
+      "style": {
+      }
+    },
+    {
+      "type": "form",
+      "title": "请输入班级名称",
+      "body": [
+        {
+          "label": "文本框",
+          "type": "input-text",
+          "name": "className"
+        }
+      ],
+      "id": "u:02600d052428",
+      "submitText": "生成",
+      "messages": {
+        "fetchFailed": "操作失败！",
+        "saveSuccess": "保存成功",
+        "saveFailed": "保存失败",
+        "fetchSuccess": "操作成功！"
+      },
+      "target": "createClassReport,countAvgScores"
     },
     {
       "type": "crud",
       "syncLocation": false,
       "api": {
         "method": "get",
-        "url": "http://localhost:8890/main/score/searchByName/${name}",
-        "dataType": "json",
-        "responseData": null
+        "url": "http://localhost:8890/main/score/createClassReport/${className}"
       },
+      "defaultParams": {
+        "perPage": 10
+      },
+      "bulkActions": [
+      ],
+      "itemActions": [
+      ],
+      "features": [
+        "filter"
+      ],
+      "filterColumnCount": 6,
+      "id": "u:83e48aa985bd",
+      "placeholder": "-",
+      "perPageAvailable": [
+        10
+      ],
+      "messages": {
+        "fetchSuccess": "查询成功！",
+        "fetchFailed": "查询失败！请检查班级编号是否输入正确！"
+      },
+      "filter": null,
+      "initFetch": false,
+      "footerToolbar": [
+        {
+          "type": "statistics"
+        },
+        {
+          "type": "pagination"
+        },
+        {
+          "type":"export-excel",
+          "filename": "${className}成绩报告表"
+        }
+       
+      ],
+      "mode": "table",
       "columns": [
         {
           "name": "id",
@@ -77,12 +134,44 @@
           "type": "text",
           "label": "体育成绩",
           "name": "peScore"
+        }
+      ],
+      "name": "createClassReport",
+    },
+    {
+      "type": "crud",
+      "name": "countAvgScores",
+      "syncLocation": false,
+      "api": {
+        "method": "get",
+        "url": "http://localhost:8890/main/score/countAvgScores/${className}"
+      },
+      "columns": [
+        {
+          "name": "mathScoreAvg",
+          "label": "数学平均成绩",
+          "type": "text"
         },
-              {
-                "type": "text",
-                "label": "总成绩",
-                "name": "sumScore"
-              }
+        {
+          "name": "javaScoreAvg",
+          "label": "Java平均成绩",
+          "type": "text"
+        },
+        {
+          "type": "text",
+          "label": "英语平均成绩",
+          "name": "engScoreAvg"
+        },
+        {
+          "type": "text",
+          "label": "体育平均成绩",
+          "name": "peScoreAvg"
+        },
+        {
+          "type": "text",
+          "label": "总平均成绩",
+          "name": "sumScoreAvg"
+        }
       ],
       "bulkActions": [
       ],
@@ -91,28 +180,22 @@
       "features": [
         "filter"
       ],
-      "filterColumnCount": 6,
-      "id": "u:83e48aa985bd",
-      "placeholder": "-",
+      "filterColumnCount": 3,
+      "id": "u:c150c055df54",
       "perPageAvailable": [
         10
       ],
       "messages": {
-        "fetchSuccess": "查询成功！",
-        "fetchFailed": "查询失败！请检查姓名输入是否有误或不存在该生成绩！"
       },
-      "filter": {
-        "title": "输入姓名以查询成绩（注意：可能存在重名！）",
-        "body": [
-          {
-            "type": "input-text",
-            "name": "name",
-            "label": "请输入姓名",
-            "required": true
-          }
-        ]
-      },
-      "initFetch": false
+      "initFetch": false,
+      "headerToolbar": [
+      ],
+      "footerToolbar": [
+      ],
+      "hideQuickSaveBtn": false,
+      "alwaysShowPagination": false,
+      "keepItemSelectionOnPageChange": false,
+      "affixHeader": true
     }
   ],
   "aside": [

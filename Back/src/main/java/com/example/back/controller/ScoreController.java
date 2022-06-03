@@ -27,4 +27,14 @@ public class ScoreController {
     public Result selectByName(@PathVariable String name) throws Exception{
         return Result.success(scoreService.selectByName(name));
     }
+
+    @GetMapping("/createClassReport/{className}")
+    public Result createClassReport(@PathVariable String className) throws Exception{
+        return Result.success(scoreService.createClassReport(className));
+    }
+
+    @GetMapping("/countAvgScores/{className}")
+    public Result countAvgScores(@PathVariable String className) throws Exception{
+        return Result.success(scoreService.countAvgScores(className));
+    }
 }

@@ -23,4 +23,12 @@
             1 = 1 and id in (select id from student where stu_name = #{stuName})
         </where>
     </select>
+
+    <select id="selectListByClassName" resultType="com.example.back.entity.Scores">
+        select * from scores
+        <where>
+            1 = 1 and id in (select id from student where class_name = #{className})
+        </where>
+    </select>
+
 </mapper>

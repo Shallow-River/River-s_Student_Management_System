@@ -30,7 +30,6 @@
     <script type="text/javascript">
       (function () {
         let amis = amisRequire('amis/embed');
-        // 通过替换下面这个配置来生成不同页面
         let amisJSON = {
             "type": "page",
   "body": [
@@ -65,6 +64,12 @@
           "type": "input-text",
           "name": "stuBirth",
           "label": "出生年月日"
+        },
+        {
+          "label": "所属班级",
+          "type": "input-text",
+          "name": "className",
+          "required": true
         }
       ],
       
@@ -100,13 +105,17 @@
           "label": "成绩查询",
           "to": "/search.html",
           "children": [
-            {
-              "label": "学号查询",
+          {
+              "label": "根据学号查询成绩",
               "to": "/search_id.html"
             },
             {
-              "label": "姓名查询",
+              "label": "根据姓名查询成绩",
               "to": "/search_name.html"
+            },
+            {
+              "label": "生成班级成绩报告",
+              "to": "/report.html"
             }
           ]
         },

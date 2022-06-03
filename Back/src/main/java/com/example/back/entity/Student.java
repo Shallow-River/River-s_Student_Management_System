@@ -19,4 +19,6 @@ public class Student {
     private String stuSex;
 
     private String stuBirth;
+
+    private String className;
 }

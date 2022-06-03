@@ -16,4 +16,6 @@ public class Scores {
     private Double engScore;
 
     private Double peScore;
+
+    private Double sumScore;
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.ScoreAddBo;
 import com.example.back.common.StringConstant;
 import com.example.back.common.handle.MyException;
+import com.example.back.entity.ClassReport;
 import com.example.back.entity.Scores;
 import com.example.back.entity.Student;
 import com.example.back.mapper.ScoresMapper;
@@ -34,6 +35,8 @@ public class ScoreServiceImpl implements ScoreService {
     @Transactional(rollbackFor = Exception.class)
     public int insert(ScoreAddBo bo) {
         Scores score = BeanUtil.toBean(bo, Scores.class);
+        double sumScore = (bo.getEngScore() + bo.getPeScore() + bo.getJavaScore() + bo.getMathScore());
+        score.setSumScore(sumScore);
         return scoresMapper.insert(score);
     }
 
@@ -70,6 +73,40 @@ public class ScoreServiceImpl implements ScoreService {
             return vo;
         }).collect(Collectors.toList());
 
+        return list;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<ScoresVo> createClassReport(String className) {
+        List<Scores> scores = scoresMapper.selectListByClassName(className);
+
+        if(scores.isEmpty()){
+            throw new MyException(scores, StringConstant.FAILURE_OF_CREATE_REPORT);
+        }
+
+        List<ScoresVo> list = scores.stream().map(e -> {
+            Student student = studentMapper.selectById(e.getId());
+            ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
+            vo.setStuName(student.getStuName());
+            return vo;
+        }).collect(Collectors.toList());
+
+        return list;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<ClassReport> countAvgScores(String className) {
+        ClassReport report = new ClassReport();
+        List<ScoresVo> scores = createClassReport(className);
+
+        for(ScoresVo vo : scores){
+            report.add(vo.getMathScore(), vo.getJavaScore(), vo.getEngScore(), vo.getPeScore(), vo.getSumScore());
+        }
+        report.getAvg((double) scores.size());
+        List<ClassReport> list = new ArrayList<>();
+        list.add(report);
         return list;
     }
 }

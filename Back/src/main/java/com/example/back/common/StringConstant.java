@@ -9,5 +9,7 @@ public class StringConstant {
 
     public static final String FAILURE_OF_SEARCH_NAME = "查询失败！请检查姓名输入是否有误或不存在该生成绩！";
 
+    public static final String FAILURE_OF_CREATE_REPORT = "生成失败！请检查班级名称输入是否有误！";
+
     public static final String SUCCESS_OF_SEARCH = "查询成功！";
 }

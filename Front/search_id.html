@@ -73,6 +73,11 @@
           "label": "体育成绩",
           "name": "peScore"
         },
+              {
+                "type": "text",
+                "label": "总成绩",
+                "name": "sumScore"
+              },
         {
           "type": "chart",
           "config": {
@@ -183,13 +188,17 @@
           "label": "成绩查询",
           "to": "/search.html",
           "children": [
-            {
-              "label": "学号查询",
+          {
+              "label": "根据学号查询成绩",
               "to": "/search_id.html"
             },
             {
-              "label": "姓名查询",
+              "label": "根据姓名查询成绩",
               "to": "/search_name.html"
+            },
+            {
+              "label": "生成班级成绩报告",
+              "to": "/report.html"
             }
           ]
         },

@@ -15,4 +15,6 @@ public interface ScoresMapper extends BaseMapper<Scores> {
     List<Scores> selectListById(Long id);
 
     List<Scores> selectListByName(String name);
+
+    List<Scores> selectListByClassName(String name);
 }

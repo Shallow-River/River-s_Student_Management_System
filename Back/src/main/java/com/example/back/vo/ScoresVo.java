@@ -15,4 +15,6 @@ public class ScoresVo {
     private Double engScore;
 
     private Double peScore;
+
+    private Double sumScore;
 }

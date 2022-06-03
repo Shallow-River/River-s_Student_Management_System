@@ -60,6 +60,12 @@
           "name": "stuBirth",
           "type": "input-text",
           "label": "出生年月日"
+        },
+        {
+          "label": "所属班级",
+          "type": "input-text",
+          "name": "className",
+          "required": true
         }
       ],
       "mode": "normal"
@@ -104,13 +110,17 @@
           "label": "成绩查询",
           "to": "/search.html",
           "children": [
-            {
-              "label": "学号查询",
+          {
+              "label": "根据学号查询成绩",
               "to": "/search_id.html"
             },
             {
-              "label": "姓名查询",
+              "label": "根据姓名查询成绩",
               "to": "/search_name.html"
+            },
+            {
+              "label": "生成班级成绩报告",
+              "to": "/report.html"
             }
           ]
         },
