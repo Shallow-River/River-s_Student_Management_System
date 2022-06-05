@@ -19,4 +19,6 @@ public class StudentEditbo {
     private String stuSex;
 
     private String stuBirth;
+
+    private String className;
 }

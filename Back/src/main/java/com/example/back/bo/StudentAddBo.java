@@ -19,4 +19,7 @@ public class StudentAddBo {
     private String stuSex;
 
     private String stuBirth;
+
+    @NotBlank(message = "所属班级不可为空")
+    private String className;
 }
