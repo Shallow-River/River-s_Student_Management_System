@@ -52,16 +52,16 @@ public class StudentServiceImpl implements StudentService {
     public StudentVo selectById(Long id) {
         Student student = studentMapper.selectById(id);
         StudentVo vo = new StudentVo();
-        BeanUtils.copyProperties(vo, student);
+        BeanUtils.copyProperties(student, vo);
         return vo;
     }
 
     @Override
     public List<StudentVo> selectByName(String name) {
-        List<StudentVo> list = studentMapper.selectList(new QueryWrapper<Student>().like("stu_name", name)).stream().map(
+        List<StudentVo> list = studentMapper.selectList(new QueryWrapper<Student>().eq("stu_name", name)).stream().map(
                 student -> {
                     StudentVo vo = new StudentVo();
-                    BeanUtils.copyProperties(vo, student);
+                    BeanUtils.copyProperties(student, vo);
                     return vo;
                 }
         ).collect(Collectors.toList());

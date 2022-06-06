@@ -43,7 +43,7 @@ public class StudentController {
     }
 
     @GetMapping("/search_name/{name}")
-    public Result selectByName(@RequestParam(value = "name") String name){
+    public Result selectByName(@PathVariable String name){
         return Result.success(studentService.selectByName(name));
     }
 }
