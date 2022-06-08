@@ -19,4 +19,6 @@ public interface StudentService {
     StudentVo selectById(Long id);
 
     List<StudentVo> selectByName(String name);
+
+    List<StudentVo> init();
 }

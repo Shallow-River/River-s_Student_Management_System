@@ -1,6 +1,7 @@
 package com.example.back.controller;
 
 import com.example.back.bo.ScoreAddBo;
+import com.example.back.bo.ScoreEditBo;
 import com.example.back.service.ScoreService;
 import com.example.back.vo.Result;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ public class ScoreController {
     @PostMapping("/addScore")
     public Result insert(@RequestBody ScoreAddBo bo) throws Exception{
         return Result.judge(scoreService.insert(bo));
+    }
+
+    @PutMapping("/edit")
+    public Result edit(@RequestBody ScoreEditBo bo) throws Exception{
+        return Result.judge(scoreService.edit(bo));
     }
 
     @GetMapping("/searchById/{id}")
@@ -36,5 +42,10 @@ public class ScoreController {
     @GetMapping("/countAvgScores/{className}")
     public Result countAvgScores(@PathVariable String className) throws Exception{
         return Result.success(scoreService.countAvgScores(className));
+    }
+
+    @GetMapping("/init")
+    public Result initScores() throws Exception{
+        return Result.success();
     }
 }

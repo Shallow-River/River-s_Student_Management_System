@@ -9,6 +9,7 @@ import com.example.back.mapper.ScoresMapper;
 import com.example.back.mapper.StudentMapper;
 import com.example.back.service.StudentService;
 import com.example.back.vo.Result;
+import com.example.back.vo.ScoresVo;
 import com.example.back.vo.StudentVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -58,10 +59,22 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentVo> selectByName(String name) {
-        List<StudentVo> list = studentMapper.selectList(new QueryWrapper<Student>().eq("stu_name", name)).stream().map(
+        List<StudentVo> list = studentMapper.selectList(new QueryWrapper<Student>().like("stu_name", name)).stream().map(
                 student -> {
                     StudentVo vo = new StudentVo();
                     BeanUtils.copyProperties(student, vo);
+                    return vo;
+                }
+        ).collect(Collectors.toList());
+        return list;
+    }
+
+    @Override
+    public List<StudentVo> init() {
+        List<Student> students = studentMapper.selectAll();
+        List<StudentVo> list = students.stream().map(
+                student -> {
+                    StudentVo vo = BeanUtil.toBean(student, StudentVo.class);
                     return vo;
                 }
         ).collect(Collectors.toList());

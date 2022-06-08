@@ -3,6 +3,7 @@ package com.example.back.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.ScoreAddBo;
+import com.example.back.bo.ScoreEditBo;
 import com.example.back.common.StringConstant;
 import com.example.back.common.handle.MyException;
 import com.example.back.entity.ClassReport;
@@ -38,6 +39,14 @@ public class ScoreServiceImpl implements ScoreService {
         double sumScore = (bo.getEngScore() + bo.getPeScore() + bo.getJavaScore() + bo.getMathScore());
         score.setSumScore(sumScore);
         return scoresMapper.insert(score);
+    }
+
+    @Override
+    public int edit(ScoreEditBo bo) {
+        Scores score = BeanUtil.toBean(bo, Scores.class);
+        double sumScore = (bo.getEngScore() + bo.getPeScore() + bo.getJavaScore() + bo.getMathScore());
+        score.setSumScore(sumScore);
+        return scoresMapper.update(score, new QueryWrapper<Scores>().eq("id", bo.getId()));
     }
 
     @Override
@@ -107,6 +116,19 @@ public class ScoreServiceImpl implements ScoreService {
         report.getAvg((double) scores.size());
         List<ClassReport> list = new ArrayList<>();
         list.add(report);
+        return list;
+    }
+
+    @Override
+    public List<ScoresVo> init() {
+        List<Scores> scores = scoresMapper.selectAll();
+        List<ScoresVo> list = scores.stream().map(e -> {
+            Student student = studentMapper.selectById(e.getId());
+            ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
+            vo.setStuName(student.getStuName());
+            return vo;
+        }).collect(Collectors.toList());
+
         return list;
     }
 }

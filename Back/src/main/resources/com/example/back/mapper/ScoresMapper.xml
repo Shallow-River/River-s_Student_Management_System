@@ -10,6 +10,13 @@
         <id column="pe_score" jdbcType="DOUBLE" property="peScore"/>
     </resultMap>
 
+    <select id="selectAll" resultType="com.example.back.entity.Scores">
+        select * from scores
+        <where>
+            1 = 1
+        </where>
+    </select>
+
     <select id="selectListById" resultType="com.example.back.entity.Scores">
         select * from scores
         <where>
@@ -20,7 +27,7 @@
     <select id="selectListByName" resultType="com.example.back.entity.Scores">
         select * from scores
         <where>
-            1 = 1 and id in (select id from student where stu_name = #{stuName})
+            1 = 1 and id in (select id from student where stu_name like CONCAT('%', CONCAT(#{stuName}, '%')))
         </where>
     </select>
 

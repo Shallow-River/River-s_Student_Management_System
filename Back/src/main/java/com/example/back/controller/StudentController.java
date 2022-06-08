@@ -46,4 +46,9 @@ public class StudentController {
     public Result selectByName(@PathVariable String name){
         return Result.success(studentService.selectByName(name));
     }
+
+    @GetMapping("/init")
+    public Result initStudents() throws Exception{
+        return Result.success(studentService.init());
+    }
 }
