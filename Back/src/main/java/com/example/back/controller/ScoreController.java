@@ -46,6 +46,6 @@ public class ScoreController {
 
     @GetMapping("/init")
     public Result initScores() throws Exception{
-        return Result.success();
+        return Result.success(scoreService.init());
     }
 }
