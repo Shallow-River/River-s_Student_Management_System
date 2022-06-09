@@ -37,6 +37,7 @@ public class StudentServiceImpl implements StudentService {
     public int insert(StudentAddBo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
         schoolInfoMapper.addStudent(studentMapper.selectCount(null) + 1);
+
         return studentMapper.insert(student);
     }
 

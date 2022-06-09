@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.ScoreAddBo;
 import com.example.back.bo.ScoreEditBo;
+import com.example.back.cache.ScoresCacheService;
 import com.example.back.common.StringConstant;
 import com.example.back.common.handle.MyException;
 import com.example.back.entity.ClassReport;
@@ -12,9 +13,7 @@ import com.example.back.entity.Student;
 import com.example.back.mapper.ScoresMapper;
 import com.example.back.mapper.StudentMapper;
 import com.example.back.service.ScoreService;
-import com.example.back.vo.Result;
 import com.example.back.vo.ScoresVo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +31,9 @@ public class ScoreServiceImpl implements ScoreService {
     @Resource
     private StudentMapper studentMapper;
 
+    @Resource
+    private ScoresCacheService scoresCacheService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insert(ScoreAddBo bo) {
@@ -39,6 +41,8 @@ public class ScoreServiceImpl implements ScoreService {
         score.setId(score.getId() - 2005010700);
         double sumScore = (bo.getEngScore() + bo.getPeScore() + bo.getJavaScore() + bo.getMathScore());
         score.setSumScore(sumScore);
+        scoresCacheService.putScoresInfo(score);
+
         return scoresMapper.insert(score);
     }
 
