@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SchoolInfoMapper extends BaseMapper<SchoolInfo> {
+    int addStudent(Long num);
 }

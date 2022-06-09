@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.StudentAddBo;
 import com.example.back.bo.StudentEditbo;
 import com.example.back.entity.Student;
+import com.example.back.mapper.SchoolInfoMapper;
 import com.example.back.mapper.ScoresMapper;
 import com.example.back.mapper.StudentMapper;
 import com.example.back.service.StudentService;
@@ -28,10 +29,14 @@ public class StudentServiceImpl implements StudentService {
     @Resource
     private ScoresMapper scoresMapper;
 
+    @Resource
+    private SchoolInfoMapper schoolInfoMapper;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insert(StudentAddBo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
+        schoolInfoMapper.addStudent(studentMapper.selectCount(null) + 1);
         return studentMapper.insert(student);
     }
 
