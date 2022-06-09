@@ -36,6 +36,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Transactional(rollbackFor = Exception.class)
     public int insert(ScoreAddBo bo) {
         Scores score = BeanUtil.toBean(bo, Scores.class);
+        score.setId(score.getId() - 2005010700);
         double sumScore = (bo.getEngScore() + bo.getPeScore() + bo.getJavaScore() + bo.getMathScore());
         score.setSumScore(sumScore);
         return scoresMapper.insert(score);
@@ -44,6 +45,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public int edit(ScoreEditBo bo) {
         Scores score = BeanUtil.toBean(bo, Scores.class);
+        score.setId(score.getId() - 2005010700);
         double sumScore = (bo.getEngScore() + bo.getPeScore() + bo.getJavaScore() + bo.getMathScore());
         score.setSumScore(sumScore);
         return scoresMapper.update(score, new QueryWrapper<Scores>().eq("id", bo.getId()));
@@ -52,7 +54,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<ScoresVo> selectById(Long id) {
-        List<Scores> scores = scoresMapper.selectListById(id);
+        List<Scores> scores = scoresMapper.selectListById(id - 2005010700);
         if(scores.isEmpty()){
             throw new MyException(scores, StringConstant.FAILURE_OF_SEARCH_ID);
         }
@@ -60,6 +62,7 @@ public class ScoreServiceImpl implements ScoreService {
             Student student = studentMapper.selectById(e.getId());
             ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
             vo.setStuName(student.getStuName());
+            vo.setId(student.getId() + 2005010700);
             return vo;
         }).collect(Collectors.toList());
 
@@ -79,6 +82,7 @@ public class ScoreServiceImpl implements ScoreService {
             Student student = studentMapper.selectById(e.getId());
             ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
             vo.setStuName(student.getStuName());
+            vo.setId(student.getId() + 2005010700);
             return vo;
         }).collect(Collectors.toList());
 
@@ -98,6 +102,7 @@ public class ScoreServiceImpl implements ScoreService {
             Student student = studentMapper.selectById(e.getId());
             ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
             vo.setStuName(student.getStuName());
+            vo.setId(student.getId() + 2005010700);
             return vo;
         }).collect(Collectors.toList());
 
@@ -121,11 +126,12 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public List<ScoresVo> init() {
-        List<Scores> scores = scoresMapper.selectAll();
+        List<Scores> scores = scoresMapper.selectList(null);
         List<ScoresVo> list = scores.stream().map(e -> {
             Student student = studentMapper.selectById(e.getId());
             ScoresVo vo = BeanUtil.toBean(e, ScoresVo.class);
             vo.setStuName(student.getStuName());
+            vo.setId(student.getId() + 2005010700);
             return vo;
         }).collect(Collectors.toList());
 

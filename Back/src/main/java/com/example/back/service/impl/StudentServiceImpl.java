@@ -59,6 +59,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentMapper.selectById(id);
         StudentVo vo = new StudentVo();
         BeanUtils.copyProperties(student, vo);
+        vo.setId(student.getId() + 2005010700);
         return vo;
     }
 
@@ -68,6 +69,7 @@ public class StudentServiceImpl implements StudentService {
                 student -> {
                     StudentVo vo = new StudentVo();
                     BeanUtils.copyProperties(student, vo);
+                    vo.setId(student.getId() + 2005010700);
                     return vo;
                 }
         ).collect(Collectors.toList());
@@ -80,6 +82,7 @@ public class StudentServiceImpl implements StudentService {
         List<StudentVo> list = students.stream().map(
                 student -> {
                     StudentVo vo = BeanUtil.toBean(student, StudentVo.class);
+                    vo.setId(student.getId() + 2005010700);
                     return vo;
                 }
         ).collect(Collectors.toList());
