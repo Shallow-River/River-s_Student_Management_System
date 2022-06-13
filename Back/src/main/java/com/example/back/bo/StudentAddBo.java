@@ -22,4 +22,10 @@ public class StudentAddBo {
 
     @NotBlank(message = "所属班级不可为空")
     private String className;
+
+    //院系编号
+    private Long departmentId;
+
+    //籍贯
+    private String nativePlace;
 }

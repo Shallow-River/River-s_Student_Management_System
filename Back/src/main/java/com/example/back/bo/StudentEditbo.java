@@ -21,4 +21,10 @@ public class StudentEditbo {
     private String stuBirth;
 
     private String className;
+
+    //院系编号
+    private Long departmentId;
+
+    //籍贯
+    private String nativePlace;
 }

@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class Class {
-    private Integer classId;
+    private Long classId;
 
     private String className;
+
+    private Long monitor;
 }

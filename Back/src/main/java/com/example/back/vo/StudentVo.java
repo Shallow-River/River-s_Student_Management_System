@@ -12,4 +12,12 @@ public class StudentVo {
     private String stuSex;
 
     private String stuBirth;
+
+    //院系
+    private String department;
+
+    //籍贯
+    private String nativePlace;
+
+
 }

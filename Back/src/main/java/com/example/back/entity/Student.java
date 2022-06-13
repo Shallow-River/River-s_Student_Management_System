@@ -24,5 +24,13 @@ public class Student implements Serializable {
 
     private String stuBirth;
 
-    private String className;
+    //班级编号
+    private Long classId;
+
+    //院系编号
+    private Long departmentId;
+
+    //籍贯
+    private String nativePlace;
+
 }
