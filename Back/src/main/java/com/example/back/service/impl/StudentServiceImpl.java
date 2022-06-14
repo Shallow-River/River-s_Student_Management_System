@@ -5,9 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.StudentAddBo;
 import com.example.back.bo.StudentEditbo;
 import com.example.back.entity.Student;
-import com.example.back.mapper.SchoolInfoMapper;
-import com.example.back.mapper.ScoresMapper;
-import com.example.back.mapper.StudentMapper;
+import com.example.back.mapper.*;
 import com.example.back.service.StudentService;
 import com.example.back.vo.Result;
 import com.example.back.vo.ScoresVo;
@@ -32,11 +30,35 @@ public class StudentServiceImpl implements StudentService {
     @Resource
     private SchoolInfoMapper schoolInfoMapper;
 
+    @Resource
+    private ChangeMapper changeMapper;
+
+    @Resource
+    private RewardMapper rewardMapper;
+
+    @Resource
+    private PunishmentMapper punishmentMapper;
+
+    @Resource
+    private DepartmentMapper departmentMapper;
+
+    @Resource
+    private ChangeCodeMapper changeCodeMapper;
+
+    @Resource
+    private RewardLevelsMapper rewardLevelsMapper;
+
+    @Resource
+    private PunishmentLevelsMapper punishmentLevelsMapper;
+
+    @Resource
+    private ClassMapper classMapper;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insert(StudentAddBo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
-        schoolInfoMapper.addStudent(studentMapper.selectCount(null) + 1);
+        schoolInfoMapper.addStudent((long)(studentMapper.selectCount(null) + 1));
 
         return studentMapper.insert(student);
     }
@@ -61,6 +83,8 @@ public class StudentServiceImpl implements StudentService {
         StudentVo vo = new StudentVo();
         BeanUtils.copyProperties(student, vo);
         vo.setId(student.getId() + 2005010700);
+        vo.setClassName(classMapper.selectById(student.getClassId()).getClassName());
+        vo.setDepartment(departmentMapper.selectById(student.getDepartmentId()).getName());
         return vo;
     }
 
@@ -71,6 +95,8 @@ public class StudentServiceImpl implements StudentService {
                     StudentVo vo = new StudentVo();
                     BeanUtils.copyProperties(student, vo);
                     vo.setId(student.getId() + 2005010700);
+                    vo.setClassName(classMapper.selectById(student.getClassId()).getClassName());
+                    vo.setDepartment(departmentMapper.selectById(student.getDepartmentId()).getName());
                     return vo;
                 }
         ).collect(Collectors.toList());

@@ -13,6 +13,8 @@ public class StudentVo {
 
     private String stuBirth;
 
+    private String className;
+
     //院系
     private String department;
 
