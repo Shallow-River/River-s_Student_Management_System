@@ -16,6 +16,8 @@ public class Student implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    private Long studentId;
+
     @NotBlank(message = "用户名不可为空")
     @Size(min = 0, max = 20, message = "用户名长度不能超过20个字符")
     private String stuName;

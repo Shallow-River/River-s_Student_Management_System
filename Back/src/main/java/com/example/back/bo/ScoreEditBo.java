@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ScoreEditBo {
-    private Long id;
+    private Long studentId;
 
     private Double mathScore;
 

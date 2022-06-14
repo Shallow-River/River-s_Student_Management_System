@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class StudentEditbo {
-    private Long id;
+    private Long studentId;
 
     @NotBlank(message = "用户名不可为空")
     @Size(min = 0, max = 20, message = "用户名长度不能超过20个字符")

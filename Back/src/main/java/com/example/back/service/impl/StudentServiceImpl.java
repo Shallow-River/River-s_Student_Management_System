@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.back.bo.StudentAddBo;
 import com.example.back.bo.StudentEditbo;
+import com.example.back.entity.Scores;
 import com.example.back.entity.Student;
 import com.example.back.mapper.*;
 import com.example.back.service.StudentService;
@@ -59,30 +60,28 @@ public class StudentServiceImpl implements StudentService {
     public int insert(StudentAddBo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
         schoolInfoMapper.addStudent((long)(studentMapper.selectCount(null) + 1));
-
         return studentMapper.insert(student);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int delete(Long id) {
-        scoresMapper.deleteById(id);
-        return studentMapper.delete(new QueryWrapper<Student>().eq("id", id));
+        scoresMapper.delete(new QueryWrapper<Scores>().eq("student_id", id));
+        return studentMapper.delete(new QueryWrapper<Student>().eq("student_id", id));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int update(StudentEditbo bo) {
         Student student = BeanUtil.toBean(bo, Student.class);
-        return studentMapper.update(student, new QueryWrapper<Student>().eq("id", bo.getId()));
+        return studentMapper.update(student, new QueryWrapper<Student>().eq("student_id", bo.getStudentId()));
     }
 
     @Override
     public StudentVo selectById(Long id) {
-        Student student = studentMapper.selectById(id);
+        Student student = studentMapper.selectOne(new QueryWrapper<Student>().eq("student_id", id));
         StudentVo vo = new StudentVo();
         BeanUtils.copyProperties(student, vo);
-        vo.setId(student.getId() + 2005010700);
         vo.setClassName(classMapper.selectById(student.getClassId()).getClassName());
         vo.setDepartment(departmentMapper.selectById(student.getDepartmentId()).getName());
         return vo;
@@ -94,7 +93,6 @@ public class StudentServiceImpl implements StudentService {
                 student -> {
                     StudentVo vo = new StudentVo();
                     BeanUtils.copyProperties(student, vo);
-                    vo.setId(student.getId() + 2005010700);
                     vo.setClassName(classMapper.selectById(student.getClassId()).getClassName());
                     vo.setDepartment(departmentMapper.selectById(student.getDepartmentId()).getName());
                     return vo;
@@ -109,7 +107,6 @@ public class StudentServiceImpl implements StudentService {
         List<StudentVo> list = students.stream().map(
                 student -> {
                     StudentVo vo = BeanUtil.toBean(student, StudentVo.class);
-                    vo.setId(student.getId() + 2005010700);
                     return vo;
                 }
         ).collect(Collectors.toList());

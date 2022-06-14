@@ -13,6 +13,8 @@ public class Scores implements Serializable {
 
     private Long id;
 
+    private Long studentId;
+
     private Double mathScore;
 
     private Double javaScore;
