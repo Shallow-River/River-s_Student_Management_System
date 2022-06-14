@@ -10,6 +10,8 @@ public class RewardVo {
 
     private String studentName;
 
+    private String rewardDescription;
+
     private Date recTime;
 
     private String description;

@@ -6,9 +6,7 @@ import com.example.back.bo.ChangeAddBo;
 import com.example.back.bo.PunishmentAddBo;
 import com.example.back.bo.PunishmentEditBo;
 import com.example.back.bo.RewardAddBo;
-import com.example.back.entity.Change;
-import com.example.back.entity.Punishment;
-import com.example.back.entity.Reward;
+import com.example.back.entity.*;
 import com.example.back.mapper.*;
 import com.example.back.service.OfficeService;
 import com.example.back.vo.ChangeVo;
@@ -79,6 +77,7 @@ public class OfficeServiceImpl implements OfficeService {
                 change -> {
                     ChangeVo vo = BeanUtil.toBean(change, ChangeVo.class);
                     vo.setStudentName(studentMapper.selectById(change.getStudentId()).getStuName());
+                    vo.setChangeDescription(changeCodeMapper.selectOne(new QueryWrapper<ChangeCode>().eq("code", change.getChangeId())).getDescription());
                     return vo;
                 }
         ).collect(Collectors.toList());
@@ -94,6 +93,7 @@ public class OfficeServiceImpl implements OfficeService {
                 reward -> {
                     RewardVo vo = BeanUtil.toBean(reward, RewardVo.class);
                     vo.setStudentName(studentMapper.selectById(reward.getStudentId()).getStuName());
+                    vo.setRewardDescription(rewardLevelsMapper.selectOne(new QueryWrapper<RewardLevels>().eq("code", reward.getLevels())).getDescription());
                     return vo;
                 }
         ).collect(Collectors.toList());
@@ -109,6 +109,7 @@ public class OfficeServiceImpl implements OfficeService {
                 punishment -> {
                     PunishmentVo vo = BeanUtil.toBean(punishment, PunishmentVo.class);
                     vo.setStudentName(studentMapper.selectById(punishment.getStudentId()).getStuName());
+                    vo.setPunishmentDescription(punishmentLevelsMapper.selectOne(new QueryWrapper<PunishLevels>().eq("code", punishment.getLevels())).getDescription());
                     return vo;
                 }
         ).collect(Collectors.toList());
