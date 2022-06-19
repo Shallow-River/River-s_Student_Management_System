@@ -23,8 +23,7 @@ public class StudentAddBo {
 
     private String stuBirth;
 
-    @NotBlank(message = "所属班级不可为空")
-    private String className;
+    private Long classId;
 
     //院系编号
     private Long departmentId;

@@ -24,7 +24,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Resource
     private StudentMapper studentMapper;
     @Resource
-    private ChangeMapper changeMapper;
+    private XuejiMapper changeMapper;
 
     @Resource
     private PunishmentMapper punishmentMapper;
@@ -45,10 +45,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public int addChange(ChangeAddBo bo) {
 
-        Change change = BeanUtil.toBean(bo, Change.class);
-        int result = changeMapper.insert(change);
+        Xueji change = BeanUtil.toBean(bo, Xueji.class);
 
-        return result;
+        return changeMapper.insert(change);
     }
 
     @Override
@@ -71,7 +70,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public List<ChangeVo> getChangeById(Long id) {
-        List<Change> list = changeMapper.selectList(new QueryWrapper<Change>().eq("student_id", id));
+        List<Xueji> list = changeMapper.selectList(new QueryWrapper<Xueji>().eq("student_id", id));
 
         List<ChangeVo> changeVoList = list.stream().map(
                 change -> {

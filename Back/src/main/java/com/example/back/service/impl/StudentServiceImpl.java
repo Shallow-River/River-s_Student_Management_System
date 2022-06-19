@@ -8,8 +8,6 @@ import com.example.back.entity.Scores;
 import com.example.back.entity.Student;
 import com.example.back.mapper.*;
 import com.example.back.service.StudentService;
-import com.example.back.vo.Result;
-import com.example.back.vo.ScoresVo;
 import com.example.back.vo.StudentVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,7 @@ public class StudentServiceImpl implements StudentService {
     private SchoolInfoMapper schoolInfoMapper;
 
     @Resource
-    private ChangeMapper changeMapper;
+    private XuejiMapper changeMapper;
 
     @Resource
     private RewardMapper rewardMapper;

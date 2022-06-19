@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("main/office")
+@RequestMapping("/main/office")
 public class OfficeController {
     @Resource
     private OfficeService officeService;
 
     @PostMapping("/addChange")
-    public Result addChange(ChangeAddBo bo){
-        return Result.success(officeService.addChange(bo));
+    public Result addChange(@RequestBody ChangeAddBo bo){
+        return Result.judge(officeService.addChange(bo));
     }
 
     @PostMapping("/addReward")
-    public Result addReward(RewardAddBo bo){
-        return Result.success(officeService.addReward(bo));
+    public Result addReward(@RequestBody RewardAddBo bo){
+        return Result.judge(officeService.addReward(bo));
     }
 
     @PostMapping("/addPunishment")
-    public Result addPunishment(PunishmentAddBo bo){
-        return Result.success(officeService.addPunishment(bo));
+    public Result addPunishment(@RequestBody PunishmentAddBo bo){
+        return Result.judge(officeService.addPunishment(bo));
     }
 
     @GetMapping("/getChangeById/{id}")
