@@ -75,7 +75,7 @@ public class OfficeServiceImpl implements OfficeService {
         List<ChangeVo> changeVoList = list.stream().map(
                 change -> {
                     ChangeVo vo = BeanUtil.toBean(change, ChangeVo.class);
-                    vo.setStudentName(studentMapper.selectById(change.getStudentId()).getStuName());
+                    vo.setStudentName(studentMapper.selectOne(new QueryWrapper<Student>().eq("student_id", change.getStudentId())).getStuName());
                     vo.setChangeDescription(changeCodeMapper.selectOne(new QueryWrapper<ChangeCode>().eq("code", change.getChangeId())).getDescription());
                     return vo;
                 }
@@ -91,7 +91,7 @@ public class OfficeServiceImpl implements OfficeService {
         List<RewardVo> rewardVoList = list.stream().map(
                 reward -> {
                     RewardVo vo = BeanUtil.toBean(reward, RewardVo.class);
-                    vo.setStudentName(studentMapper.selectById(reward.getStudentId()).getStuName());
+                    vo.setStudentName(studentMapper.selectOne(new QueryWrapper<Student>().eq("student_id", reward.getStudentId())).getStuName());
                     vo.setRewardDescription(rewardLevelsMapper.selectOne(new QueryWrapper<RewardLevels>().eq("code", reward.getLevels())).getDescription());
                     return vo;
                 }
@@ -107,7 +107,7 @@ public class OfficeServiceImpl implements OfficeService {
         List<PunishmentVo> punishmentVoList = list.stream().map(
                 punishment -> {
                     PunishmentVo vo = BeanUtil.toBean(punishment, PunishmentVo.class);
-                    vo.setStudentName(studentMapper.selectById(punishment.getStudentId()).getStuName());
+                    vo.setStudentName(studentMapper.selectOne(new QueryWrapper<Student>().eq("student_id", punishment.getStudentId())).getStuName());
                     vo.setPunishmentDescription(punishmentLevelsMapper.selectOne(new QueryWrapper<PunishLevels>().eq("code", punishment.getLevels())).getDescription());
                     return vo;
                 }
