@@ -1,5 +1,6 @@
 package com.example.back.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ public class PunishmentVo {
 
     private String punishmentDescription;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date recTime;
 
     private String description;
